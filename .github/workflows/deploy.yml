@@ -24,14 +24,14 @@ jobs:
 
       - name: Deploy Application
         env:
-          HOST: ${{ secrets.HOST }}
-          USER: ${{ secrets.USER }}
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh -o StrictHostKeyChecking=no "${{ secrets.USER }}@${{ secrets.HOST }}" << EOF
+          ssh -o StrictHostKeyChecking=no "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" << EOF
             cd /home/nzube/Fast_API/fastapi-book-project  
             git pull origin main
             sudo systemctl restart fastapi.service
