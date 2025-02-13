@@ -32,6 +32,10 @@ jobs:
             echo "✅ SSH_PRIVATE_KEY is set!"
           fi
 
+      - name: Debug SSH Host
+        run: |
+          echo "🔍 Debug: SSH_HOST is set to '${{ secrets.SSH_HOST }}'"
+
       - name: Deploy Application
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
